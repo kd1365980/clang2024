@@ -1,0 +1,131 @@
+#include<stdio.h>
+enum BitState
+{
+	Base = 0,              //00000000
+	Poison = 1 << 0,       //00000001
+	Sleep = 1 << 1,        //00000010
+	Paralysis = 1 << 2,    //00000100
+	Burn = 1 << 3,         //00001000
+	AtkUp = 1 << 4,        //00010000
+	AtkDown = 1 << 5       //00100000
+};
+typedef unsigned int UINT;
+void DisplayStatus(UINT s);
+void ChangeFlag(UINT* s);
+void ClearFlag(UINT* s);
+
+main()
+{
+	UINT MyState = Base;
+	ChangeFlag(&MyState);
+	ClearFlag(&MyState);
+}
+
+//èÛë‘ämîF
+void DisplayStatus(UINT s)
+{
+	printf("\n************åªç›ÇÃèÛë‘*************\n");
+	if (s == Base) {
+		printf("           àŸèÌÇ»Çµ\n");
+	}
+	if (s & Poison) {
+		printf("                ì≈\n");
+	}
+	if (s & Sleep) {
+		printf("               ñ∞ÇË\n");
+	}
+	if (s & Paralysis) {
+		printf("               ñÉ·É\n");
+	}
+	if (s & Burn) {
+		printf("               âŒèù\n");
+	}
+	if (s & AtkUp) {
+		printf("           çUåÇóÕÉAÉbÉv\n");
+	}
+	if (s & AtkDown) {
+		printf("           çUåÇóÕÉ_ÉEÉì\n");
+	}
+	printf("***********************************\n\n");
+}
+
+//èÛë‘ïtó^
+void ChangeFlag(UINT* s)
+{
+	int a;
+	while (1) {
+		DisplayStatus(*s);
+		printf("Ç«ÇÃèÛë‘Çïtó^ÇµÇ‹Ç∑Ç©\n");
+		printf("1:ì≈ 2:êáñ∞ 3:ñÉ·É 4:âŒèù 5:çUåÇÅ™ 6:çUåÇÅ´ 0:èIóπ >");
+		scanf("%d", &a);
+		if (a == 0) {
+			break;
+		}
+		switch (a)
+		{
+		case 1:
+			*s |= Poison;
+			break;
+		case 2:
+			*s |= Sleep;
+			break;
+		case 3:
+			*s |= Paralysis;
+			break;
+		case 4:
+			*s |= Burn;
+			break;
+		case 5:
+			*s |= AtkUp;
+			break;
+		case 6:
+			*s |= AtkDown;
+			break;
+		default:
+			printf("ÇªÇÃèÛë‘àŸèÌÇÕÇ†ÇËÇ‹ÇπÇÒ\n");
+			break;
+		}
+	}
+}
+
+//èÛë‘âèú
+void ClearFlag(UINT* s)
+{
+	int a;
+	while (1) {
+		DisplayStatus(*s);
+		printf("Ç«ÇÃèÛë‘ÇâèúÇµÇ‹Ç∑Ç©\n");
+		printf("1:ì≈ 2:êáñ∞ 3:ñÉ·É 4:âŒèù 5:çUåÇÅ™ 6:çUåÇÅ´ 7:ëSâèú 0:èIóπ >");
+		scanf("%d", &a);
+		if (a == 0) {
+			break;
+		}
+		switch (a)
+		{
+		case 1:
+			*s &= ~Poison;
+			break;
+		case 2:
+			*s &= ~Sleep;
+			break;
+		case 3:
+			*s &= ~Paralysis;
+			break;
+		case 4:
+			*s &= ~Burn;
+			break;
+		case 5:
+			*s &= ~AtkUp;
+			break;
+		case 6:
+			*s &= ~AtkDown;
+			break;
+		case 7:
+			*s = Base;
+			break;
+		default:
+			printf("ÇªÇÃèÛë‘àŸèÌÇÕÇ†ÇËÇ‹ÇπÇÒ\n");
+				break;
+		}
+	}
+}
